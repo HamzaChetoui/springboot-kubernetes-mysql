@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-conf  # name of ConfigMap, referenced in other files
+data:
+  host: product-db-service:3306  # host address of mysql server, we are using DNS of Service
+  name: product # name of the database for application
+  #url: jdbc:mysql://mysql:3306/springboot-crud-db?useSSL=false # url for the application to connect to the mysql database
