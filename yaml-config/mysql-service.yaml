@@ -5,8 +5,9 @@ metadata:
   labels:
     app: product-db
 spec:
-  type: NodePort
+  #type: NodePort
   #type: LoadBalancer
+  type: ClusterIp
   ports:
     - port: 3306
       protocol: TCP
@@ -47,7 +48,7 @@ spec:
         tier: mysql
     spec:
       containers:
-      - image: mysql:5.6
+      - image: mysql:5.7
         name: mysql
         env:
         - name: MYSQL_USER

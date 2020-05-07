@@ -5,8 +5,8 @@ metadata:
   labels:
     app: product
 spec:
-  type: NodePort
-  #type: LoadBalancer
+  #type: NodePort
+  type: LoadBalancer
   ports:
   - port: 8085
     targetPort: 8085
@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
       - name: product
-        image: chetoui/product:1.0
+        image: hchetoui/product:1.0
         ports:
         - containerPort: 8085
         env:
@@ -55,7 +55,7 @@ spec:
               key: username
         - name: PASSWORD
           valueFrom:
-            secretMapKeyRef:
+            secretKeyRef:
               name: mysql-secret
               key: password
         - name: DDL
