@@ -6,21 +6,22 @@ metadata:
     app: product-db
 spec:
   #type: NodePort
-  #type: LoadBalancer
-  type: ClusterIp
+  type: LoadBalancer
+  #type: ClusterIp
   ports:
-    - port: 3306
-      protocol: TCP
+    - port: 3333
+      #protocol: TCP
       targetPort: 3306
   selector:
     app: product-db
-    tier: database 
+    tier: database
+  #ClusterIp: None
 ---
 
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: mysql-pv-claim57
 spec:
   accessModes:
     - ReadWriteOnce
@@ -38,14 +39,14 @@ spec:
   selector:
     matchLabels:
       app: product-db
-      tier: mysql
+      tier: database
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: product-db
-        tier: mysql
+        tier: database
     spec:
       containers:
       - image: mysql:5.7
@@ -56,11 +57,6 @@ spec:
             secretKeyRef:
               name: mysql-secret
               key: username
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: password
         - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -85,4 +81,4 @@ spec:
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
-          claimName: mysql-pv-claim
+          claimName: mysql-pv-claim57

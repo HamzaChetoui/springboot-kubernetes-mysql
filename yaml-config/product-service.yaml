@@ -34,11 +34,11 @@ spec:
     spec:
       containers:
       - name: product
-        image: hchetoui/product:1.0
+        image: hchetoui/product:4.0
         ports:
         - containerPort: 8085
         env:
-        - name: B_HOST
+        - name: DB_HOST
           valueFrom:
             configMapKeyRef:
               name: db-conf
@@ -59,4 +59,4 @@ spec:
               name: mysql-secret
               key: password
         - name: DDL
-          value: update
+          value: create
